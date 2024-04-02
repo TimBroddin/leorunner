@@ -96,7 +96,7 @@
         <div class="emscripten" style="display: flex; justify-content: space-around">
             <button id="startbtn" style="display: none" onclick="start()">Start</button>
             <input type="button" value="Fullscreen"
-                   onclick="Module.requestFullScreen(document.getElementById('pointerLock').checked, document.getElementById('resize').checked)">
+                   onclick="Module.requestFullScreen(true, true)">
         </div>
 
         <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
