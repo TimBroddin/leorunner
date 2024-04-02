@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>LEO Labyrinth</title>
+    <meta property="og:title" content="LEO Games - Leo Labyrinth">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://leogames.broddin.be">
+    <meta property="og:image" content="https://leogames.broddin.be/labyrinth.png">
+    <meta property="og:description"
+          content="Speel de klassieke Leo-spelletjes uit de jaren '90 opnieuw, Leo Catch en Leo Labyrinth. Herbeleef de nostalgie en geniet van deze tijdloze games!">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LEO Games - Leo Labyrinth">
+    <meta name="twitter:description"
+          content="Speel de klassieke Leo-spelletjes uit de jaren '90 opnieuw, Leo Catch en Leo Maze. Herbeleef de nostalgie en geniet van deze tijdloze games!">
+    <meta name="twitter:image" content="https://leogames.broddin.be/labyrinth.png">
+
+    <style type="text/css" id="wp-custom-css">
+        .emscripten {
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        body {
+            background: #4E23A3;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: white;
+            background-color: purple;
+            border: 4px solid white;
+            border-radius: 8px;
+            padding: 20px 40px;
+            cursor: pointer;
+        }
+
+        input[type="button"] {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: white;
+            background-color: purple;
+            border: 4px solid white;
+            border-radius: 8px;
+            padding: 5px 8px;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        canvas {
+            aspect-ratio: auto 800 / 600;
+            background-color: black;
+            display: block !important;
+        }
+
+        .disclaimer {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: white;
+            text-align: center;
+        }
+
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="dcontent">
+    <br>
+    <div id="loading" style="display: none">
+        <figure style="overflow:visible;" id="spinner">
+            <div class="spinner"></div>
+            <center style="margin-top:0.5em"></center>
+        </figure>
+        <div class="emscripten" id="status"></div>
+        <div class="emscripten">
+            <progress value="0" max="100" id="progress" hidden=1></progress>
+        </div>
+    </div>
+    <div id="run-inline">
+        <button id="inline-runbtn" onclick="startInline()">Start Leo Labyrinth</button>
+    </div>
+    <div id="inline" style="display: none">
+        <div class="emscripten" style="display: flex; justify-content: space-around">
+            <button id="startbtn" style="display: none" onclick="start()">Start</button>
+            <input type="button" value="Fullscreen"
+                   onclick="Module.requestFullScreen(document.getElementById('pointerLock').checked, document.getElementById('resize').checked)">
+        </div>
+
+        <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+        <div>
+            <textarea class="emscripten" id="output" rows="8" style="display: none"></textarea>
+        </div>
+        <p class="disclaimer">Dit draait een hele PC uit 1995 in uw browser, geef het even tijd om te laden.</p>
+    </div>
+    <script type="text/javascript" src="browserfs.boxedwine.js"></script>
+    <script type="text/javascript" src="jszip.min.js"></script>
+    <script type="text/javascript" src="boxedwine-shell.js"></script>
+    <script>
+		Module.locateFile = function (url) {
+			return "/" + url;
+		}
+		;
+
+		function startInline() {
+			document.getElementById('run-inline').style.display = 'none';
+			document.getElementById('loading').style.display = '';
+			Config.isRunningInline = true;
+			//Config.showUploadDownload = true;
+			Config.locateRootBaseUrl = "/";
+			Config.locateAppBaseUrl = "/";
+			Config.locateOverlayBaseUrl = "/";
+			Config.urlParams = addDefaultOnDemand("root=fullWine1.7.55-v8.zip&p=LEOMAZE/leomaze.exe&app=LEO");
+			var script = document.createElement('script');
+			script.src = "/boxedwine.js";
+			document.body.appendChild(script);
+		}
+
+		function addDefaultOnDemand(params) {
+			if (!params.includes("root=") && !params.includes("ondemand=")) {
+				if (params.length > 0) {
+					params = params + "&";
+				}
+				params = params + "ondemand=root&root=fullWine1.7.55-v8&inline-default-ondemand-root-overlay=wine1.7.55-v8-min-online";
+			}
+			return params;
+		}
+    </script>
+    <script defer data-domain="leogames.broddin.be" src="https://plausible.io/js/script.js"></script>
+
+</body>
+</html>
